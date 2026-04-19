@@ -1,0 +1,27 @@
+# Entorno virtual
+venv/
+env/
+.venv/
+
+# Base de datos
+db.sqlite3
+
+# Ficheros compilados de Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Ficheros de sistema
+.DS_Store
+Thumbs.db
+
+# Variables de entorno
+.env
+.env.local
+
+# VS Code
+.vscode/
+
+# Pytest
+.pytest_cache/
