@@ -1,0 +1,27 @@
+/* 
+Universidad Internacional de La Rioja
+Escuela Superior de Ingeniería y Tecnología 
+Grado en Ingeniería Informática
+Sistema experto Django para la asistencia técnica en mantenimiento de ascensores.
+Trabajo fin de estudio presentado por: José Manuel Palacios Hernández
+Director: Luis Pedraza Gomara
+
+custom.css - estilos personalizados como complementos a Bootstrap 5
+
+*/
+
+/* Ajuste del tamaño mínimo de botones para facilitar el uso táctil en móvil */
+.btn {
+    min-height: 44px;
+}
+
+/* Color de fondo suave*/
+.card-diagnostico {
+    background-color: #f7fbff;
+    border-left: 4px solid #2e75b6;
+}
+
+/* Colores de criticidad para las etiquetas del diagnóstico */
+.criticidad-critico   { color: #dc3545; font-weight: bold; }
+.criticidad-urgente   { color: #fd7e14; font-weight: bold; }
+.criticidad-diferible { color: #198754; font-weight: bold; }
