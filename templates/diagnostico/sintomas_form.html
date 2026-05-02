@@ -1,0 +1,83 @@
+{% extends "diagnostico/base.html" %}
+{% block title %}Registrar sintomas - {{ ascensor.identificador }}{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-12 col-lg-8">
+        <div class="card shadow-sm mb-3 card-diagnostico">
+            <div class="card-body py-2">
+                <h6 class="mb-0 fw-bold text-primary">
+                    <i class="bi bi-elevator"></i>
+                    {{ ascensor.identificador }} - {{ ascensor.direccion }}
+                </h6>
+                <small class="text-muted">
+                    {{ ascensor.fabricante }} | {{ ascensor.get_tipo_ascensor_display }}
+                    {% if ascensor.anio_instalacion %} | Anio: {{ ascensor.anio_instalacion }}{% endif %}
+                </small>
+            </div>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="card shadow-sm mb-3">
+                <div class="card-header bg-primary text-white">
+                    <i class="bi bi-check2-square"></i>
+                    <strong>Selecciona los sintomas observados</strong>
+                </div>
+                <div class="card-body">
+                    {% for subsistema in subsistemas %}
+                    <div class="mb-4">
+                        <h6 class="fw-bold text-primary border-bottom pb-1">{{ subsistema.nombre }}</h6>
+                        {% for sintoma in subsistema.sintomas.all %}
+                            {% if sintoma.activo %}
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox"
+                                    name="sintomas" value="{{ sintoma.pk }}" id="sintoma_{{ sintoma.pk }}">
+                                <label class="form-check-label" for="sintoma_{{ sintoma.pk }}">
+                                    {{ sintoma.descripcion }}
+                                </label>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="d-grid gap-2 d-md-flex">
+                <button type="submit" class="btn btn-primary flex-grow-1">
+                    <i class="bi bi-cpu"></i> Obtener diagnostico
+                </button>
+                <a href="{% url 'ascensor_list' %}" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left"></i> Volver
+                </a>
+            </div>
+        </form>
+    </div>
+    <div class="col-12 col-lg-4 mt-3 mt-lg-0">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <i class="bi bi-clock-history text-primary"></i>
+                <strong>Ultimas intervenciones</strong>
+            </div>
+            <div class="card-body p-0">
+                {% if ultimas_intervenciones %}
+                <ul class="list-group list-group-flush">
+                    {% for iv in ultimas_intervenciones %}
+                    <li class="list-group-item">
+                        <small class="text-muted d-block">{{ iv.fecha_inicio|date:"d/m/Y H:i" }}</small>
+                        <small>
+                            {% if iv.causa_confirmada %}
+                                {{ iv.causa_confirmada|truncatechars:50 }}
+                            {% else %}
+                                <em class="text-muted">Sin causa registrada</em>
+                            {% endif %}
+                        </small>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p class="text-muted small p-3 mb-0">No hay intervenciones previas.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

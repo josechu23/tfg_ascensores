@@ -1,0 +1,75 @@
+{% extends "diagnostico/base.html" %}
+{% block title %}Historial - {{ ascensor.identificador }}{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold mb-0">
+                <i class="bi bi-clock-history text-primary"></i> Historial de intervenciones
+            </h5>
+            <a href="{% url 'sintomas_form' ascensor.pk %}" class="btn btn-primary btn-sm">
+                <i class="bi bi-plus-circle"></i> Nueva intervencion
+            </a>
+        </div>
+        <div class="card shadow-sm mb-3 card-diagnostico">
+            <div class="card-body py-2">
+                <h6 class="mb-0 fw-bold text-primary">
+                    {{ ascensor.identificador }} - {{ ascensor.direccion }}
+                </h6>
+                <small class="text-muted">
+                    {{ ascensor.fabricante }} | {{ ascensor.get_tipo_ascensor_display }}
+                </small>
+            </div>
+        </div>
+        {% if intervenciones %}
+            {% for iv in intervenciones %}
+            <div class="card shadow-sm mb-2">
+                <div class="card-body py-2">
+                    <div class="row align-items-center">
+                        <div class="col-12 col-md-3">
+                            <small class="text-muted">{{ iv.fecha_inicio|date:"d/m/Y H:i" }}</small><br>
+                            <small>
+                                <i class="bi bi-person"></i>
+                                {{ iv.tecnico.get_full_name|default:iv.tecnico.username }}
+                            </small>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            {% if iv.causa_confirmada %}
+                                <strong class="small">{{ iv.causa_confirmada }}</strong><br>
+                                <small class="text-muted">{{ iv.accion_correctiva|truncatechars:80 }}</small>
+                            {% else %}
+                                <em class="text-muted small">Intervencion en curso o sin causa registrada</em>
+                            {% endif %}
+                        </div>
+                        <div class="col-12 col-md-3 text-md-end mt-2 mt-md-0">
+                            <span class="badge
+                                {% if iv.resultado == 'resuelto' %}bg-success
+                                {% elif iv.resultado == 'no_resuelto' %}bg-danger
+                                {% elif iv.resultado == 'derivado_senior' %}bg-warning text-dark
+                                {% else %}bg-secondary{% endif %}">
+                                {{ iv.get_resultado_display }}
+                            </span>
+
+                            <a href="{% url 'descargar_pdf' iv.pk %}" class="btn btn-outline-primary btn-sm mt-1">
+                                <i class="bi bi-file-pdf"></i> Descargar PDF
+                            </a>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+        <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> No hay intervenciones registradas todavia.
+        </div>
+        {% endif %}
+        <div class="mt-3">
+            <a href="{% url 'ascensor_list' %}" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-arrow-left"></i> Volver a mis ascensores
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

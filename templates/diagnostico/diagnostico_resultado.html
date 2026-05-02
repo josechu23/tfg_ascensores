@@ -1,0 +1,64 @@
+{% extends "diagnostico/base.html" %}
+{% block title %}Diagnostico - {{ ascensor.identificador }}{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow-sm mb-3 card-diagnostico">
+            <div class="card-body py-2">
+                <h6 class="mb-0 fw-bold text-primary">
+                    <i class="bi bi-elevator"></i>
+                    {{ ascensor.identificador }} - {{ ascensor.direccion }}
+                </h6>
+                <small class="text-muted">
+                    Intervencion #{{ intervencion.pk }} | {{ intervencion.fecha_inicio|date:"d/m/Y H:i" }}
+                </small>
+            </div>
+        </div>
+        {% if hay_resultados %}
+        <h6 class="fw-bold mb-3">
+            <i class="bi bi-cpu text-primary"></i> Causas probables identificadas
+        </h6>
+        {% for resultado in resultados %}
+        <div class="card shadow-sm mb-3">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span class="fw-bold">{{ forloop.counter }}. {{ resultado.causa }}</span>
+                <span class="badge
+                    {% if resultado.criticidad == 'critico' %}bg-danger
+                    {% elif resultado.criticidad == 'urgente' %}bg-warning text-dark
+                    {% else %}bg-success{% endif %}">
+                    {{ resultado.criticidad_label }}
+                </span>
+            </div>
+            <div class="card-body">
+                <p class="fw-semibold mb-2">
+                    <i class="bi bi-list-check"></i> Pasos de comprobacion recomendados:
+                </p>
+                <ol class="mb-0">
+                    {% for paso in resultado.pasos %}
+                    <li class="mb-1">{{ paso }}</li>
+                    {% endfor %}
+                </ol>
+            </div>
+            <div class="card-footer text-muted small">
+                Probabilidad relativa: {{ resultado.peso_final }}
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="alert alert-warning">
+            <i class="bi bi-exclamation-triangle"></i>
+            <strong>No se ha podido determinar la causa.</strong>
+            Los sintomas no coinciden con ninguna regla. Contacta con un Tecnico Senior.
+        </div>
+        {% endif %}
+        <div class="d-grid gap-2 d-md-flex mt-3">
+            <a href="{% url 'intervencion_registrar' intervencion.pk %}" class="btn btn-success flex-grow-1">
+                <i class="bi bi-pencil-square"></i> Registrar intervencion
+            </a>
+            <a href="{% url 'sintomas_form' ascensor.pk %}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Cambiar sintomas
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

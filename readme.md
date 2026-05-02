@@ -130,6 +130,69 @@ del superusuario que creaste en el paso 6.
 
 ---
 
+
+---
+
+## Acceso desde dispositivo móvil (smartphone o tablet)
+
+El sistema está diseñado para ser utilizado desde dispositivos móviles
+en campo. Para acceder desde un smartphone o tablet durante el desarrollo:
+
+### Requisitos previos
+- El dispositivo móvil y el ordenador deben estar conectados a la
+  misma red WiFi.
+- El servidor debe estar arrancado en el ordenador.
+
+### Paso 1 — Averigua la IP local de tu ordenador
+
+En Windows, abre una terminal y ejecuta:
+
+    ipconfig
+
+Busca la sección **Adaptador de LAN inalámbrica Wi-Fi** y anota
+el valor de **Dirección IPv4**. Será algo como `192.168.1.X`.
+
+En Mac/Linux:
+
+    ifconfig | grep "inet "
+
+### Paso 2 — Arranca el servidor escuchando en todas las interfaces
+
+En lugar del comando habitual, usa:
+
+    python manage.py runserver 0.0.0.0:8000
+
+Esto hace que el servidor sea accesible desde cualquier dispositivo
+de la red local, no solo desde el propio ordenador.
+
+### Paso 3 — Accede desde el móvil
+
+Abre el navegador del móvil y escribe:
+
+    http://192.168.1.X:8000/login/
+
+Sustituyendo `192.168.1.X` por la IP que obtuviste en el Paso 1.
+
+### Nota importante sobre HTTPS en Chrome para Android
+
+Chrome en Android puede forzar el protocolo HTTPS en conexiones
+a direcciones IP locales, impidiendo el acceso mediante HTTP.
+Si el navegador redirige automáticamente a https:// y muestra
+un error de conexión, probar una de estas soluciones:
+
+**Solución 1** — Escribe explícitamente `http://` al principio
+de la URL en la barra de direcciones y pulsa ENTER.
+
+**Solución 2** — Abre una pestaña nueva en Chrome, escribe
+`chrome://flags` en la barra de direcciones, busca
+`Insecure origins treated as secure`, actívalo y añade
+`http://192.168.1.X:8000` a la lista. Reinicia Chrome.
+
+> En un entorno de producción con certificado TLS válido este
+> problema no existe, ya que la conexión sería HTTPS de forma nativa.
+
+---
+
 ## Primeros pasos tras la instalación
 
 Para poder usar el sistema es necesario configurar al menos:
