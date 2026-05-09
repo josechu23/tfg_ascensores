@@ -175,6 +175,24 @@
     }
   },
   {
+    "model": "diagnostico.sintoma",
+    "pk": 16,
+    "fields": {
+      "subsistema": 5,
+      "descripcion": "La cabina desciende lentamente con el ascensor parado",
+      "activo": true
+    }
+  },
+  {
+    "model": "diagnostico.sintoma",
+    "pk": 17,
+    "fields": {
+      "subsistema": 5,
+      "descripcion": "Ruido excesivo en la bomba hidráulica durante el arranque",
+      "activo": true
+    }
+  },
+  {
     "model": "diagnostico.regla",
     "pk": 1,
     "fields": {
@@ -285,5 +303,61 @@
       "peso_base": 2.0,
       "activa": true
     }
+  },
+  {
+    "model": "diagnostico.regla",
+    "pk": 9,
+    "fields": {
+      "nombre": "Fallo en iluminación de cabina",
+      "subsistema": 4,
+      "sintomas_requeridos": [14],
+      "causa_probable": "Fallo en el sistema de iluminación de cabina (lampara, driver LED o fusible)",
+      "pasos_comprobacion": "Verificar el estado de las lámparas o módulos LED de la cabina\nComprobar el fusible de iluminación en el cuadro de cabina\nMedir tensión en los bornes de alimentación de la iluminación\nSustituir la lámpara, el driver LED o el fusible según corresponda",
+      "criticidad": "diferible",
+      "peso_base": 1.5,
+      "activa": true
   }
+},
+{
+  "model": "diagnostico.regla",
+  "pk": 10,
+  "fields": {
+    "nombre": "Fallo en indicador de planta",
+    "subsistema": 4,
+    "sintomas_requeridos": [15],
+    "causa_probable": "Fallo en el indicador de posición de cabina o en su conexión con la maniobra",
+    "pasos_comprobacion": "Comprobar la alimentación del indicador de planta\nVerificar la señal de posición que envía la maniobra al indicador\nRevisar el cableado entre la maniobra y el indicador de cabina\nSustituir el indicador si tiene alimentación pero no muestra información",
+    "criticidad": "diferible",
+    "peso_base": 1.0,
+    "activa": true
+  }
+},
+  {
+    "model": "diagnostico.regla",
+    "pk": 11,
+    "fields": {
+      "nombre": "Fallo en motor de bomba hidráulica",
+      "subsistema": 5,
+      "sintomas_requeridos": [6, 17],
+      "causa_probable": "Fallo en el motor de la bomba hidráulica o en el contactor de arranque",
+      "pasos_comprobacion": "Comprobar la tensión en los bornes del motor de la bomba\nVerificar el estado del contactor de arranque\nMedir la intensidad de arranque del motor con pinza amperimétrica\nRevisar el nivel y la temperatura del aceite en el depósito",
+      "criticidad": "urgente",
+      "peso_base": 2.5,
+      "activa": true
+    }
+  },
+{
+  "model": "diagnostico.regla",
+  "pk": 12,
+  "fields": {
+    "nombre": "Fuga en sistema hidráulico",
+    "subsistema": 5,
+    "sintomas_requeridos": [16],
+    "causa_probable": "Fuga interna en el bloque de válvulas o en el cilindro hidráulico",
+    "pasos_comprobacion": "Inspeccionar visualmente el exterior del cilindro y conducciones en busca de fugas\nComprobar el estado de las juntas del cilindro\nVerificar el cierre de la válvula de retención del bloque\nConsultar con el servicio técnico del fabricante si la fuga es interna",
+    "criticidad": "critico",
+    "peso_base": 3.0,
+    "activa": true
+  }
+}
 ]
