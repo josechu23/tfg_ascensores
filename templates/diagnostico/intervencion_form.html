@@ -6,8 +6,7 @@
         <div class="card shadow-sm mb-3 card-diagnostico">
             <div class="card-body py-2">
                 <h6 class="mb-0 fw-bold text-primary">
-                    <i class="bi bi-elevator"></i>
-                    {{ ascensor.identificador }} - {{ ascensor.direccion }}
+                    <i class="bi bi-elevator"></i> {{ ascensor.identificador }} - {{ ascensor.direccion }}
                 </h6>
                 <small class="text-muted">Intervencion #{{ intervencion.pk }}</small>
             </div>
@@ -23,7 +22,7 @@
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Causa confirmada</label>
                         <select name="causa_confirmada" class="form-select">
-                            <option value="">- Selecciona la causa confirmada -</option>
+                            <option value="">- Selecciona -</option>
                             {% for resultado in resultados %}
                             <option value="{{ resultado.causa }}">{{ resultado.causa }}</option>
                             {% endfor %}
@@ -35,15 +34,14 @@
                             Accion correctiva aplicada <span class="text-danger">*</span>
                         </label>
                         <textarea name="accion_correctiva" class="form-control" rows="3"
-                            placeholder="Describe la accion correctiva aplicada..." required></textarea>
+                            placeholder="Describe la accion correctiva..." required></textarea>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">Observaciones adicionales</label>
-                        <textarea name="observaciones" class="form-control" rows="2"
-                            placeholder="Observaciones opcionales..."></textarea>
+                        <label class="form-label fw-semibold">Observaciones</label>
+                        <textarea name="observaciones" class="form-control" rows="2"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">Resultado de la intervencion</label>
+                        <label class="form-label fw-semibold">Resultado</label>
                         <select name="resultado" class="form-select">
                             {% for value, label in resultado_choices %}
                             <option value="{{ value }}">{{ label }}</option>

@@ -6,12 +6,10 @@
         <div class="card shadow-sm mb-3 card-diagnostico">
             <div class="card-body py-2">
                 <h6 class="mb-0 fw-bold text-primary">
-                    <i class="bi bi-elevator"></i>
-                    {{ ascensor.identificador }} - {{ ascensor.direccion }}
+                    <i class="bi bi-elevator"></i> {{ ascensor.identificador }} - {{ ascensor.direccion }}
                 </h6>
                 <small class="text-muted">
-                    {{ ascensor.fabricante }} | {{ ascensor.get_tipo_ascensor_display }}
-                    {% if ascensor.anio_instalacion %} | Anio: {{ ascensor.anio_instalacion }}{% endif %}
+                    {{ ascensor.fabricante }} | {{ ascensor.get_tipo_ascensor_display }}{% if ascensor.anio_instalacion %} | Año: {{ ascensor.anio_instalacion }}{% endif %}
                 </small>
             </div>
         </div>
@@ -27,15 +25,15 @@
                     <div class="mb-4">
                         <h6 class="fw-bold text-primary border-bottom pb-1">{{ subsistema.nombre }}</h6>
                         {% for sintoma in subsistema.sintomas.all %}
-                            {% if sintoma.activo %}
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox"
-                                    name="sintomas" value="{{ sintoma.pk }}" id="sintoma_{{ sintoma.pk }}">
-                                <label class="form-check-label" for="sintoma_{{ sintoma.pk }}">
-                                    {{ sintoma.descripcion }}
-                                </label>
-                            </div>
-                            {% endif %}
+                        {% if sintoma.activo %}
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox"
+                                name="sintomas" value="{{ sintoma.pk }}" id="s{{ sintoma.pk }}">
+                            <label class="form-check-label" for="s{{ sintoma.pk }}">
+                                {{ sintoma.descripcion }}
+                            </label>
+                        </div>
+                        {% endif %}
                         {% endfor %}
                     </div>
                     {% endfor %}
@@ -64,11 +62,8 @@
                     <li class="list-group-item">
                         <small class="text-muted d-block">{{ iv.fecha_inicio|date:"d/m/Y H:i" }}</small>
                         <small>
-                            {% if iv.causa_confirmada %}
-                                {{ iv.causa_confirmada|truncatechars:50 }}
-                            {% else %}
-                                <em class="text-muted">Sin causa registrada</em>
-                            {% endif %}
+                            {% if iv.causa_confirmada %}{{ iv.causa_confirmada|truncatechars:50 }}
+                            {% else %}<em class="text-muted">Sin causa registrada</em>{% endif %}
                         </small>
                     </li>
                     {% endfor %}

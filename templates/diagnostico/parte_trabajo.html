@@ -16,14 +16,9 @@
             padding: 8px 12px;
             margin-bottom: 10px;
         }
-        .cabecera h1 {
-            font-size: 13px;
-            margin: 0 0 2px 0;
-        }
-        .cabecera p {
-            font-size: 10px;
-            margin: 0;
-        }
+        .cabecera h1 { font-size: 13px; margin: 0 0 2px 0; }
+        .cabecera p  { font-size: 10px; margin: 0; }
+
         .seccion {
             margin-bottom: 8px;
             padding: 6px 10px;
@@ -38,33 +33,17 @@
             padding-bottom: 4px;
             margin-bottom: 8px;
         }
-        .fila {
-            margin-bottom: 4px;
-        }
-        .etiqueta {
-            font-weight: bold;
-            color: #555;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 10px;
-        }
-        th {
-            background-color: #f0f4f8;
-            text-align: left;
-            padding: 4px 6px;
-            border: 1px solid #d0d0d0;
-            font-weight: bold;
-        }
-        td {
-            padding: 4px 6px;
-            border: 1px solid #e0e0e0;
-            vertical-align: top;
-        }
+        .fila     { margin-bottom: 4px; }
+        .etiqueta { font-weight: bold; color: #555; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 10px; }
+        th { background-color: #f0f4f8; text-align: left; padding: 4px 6px; border: 1px solid #d0d0d0; font-weight: bold; }
+        td { padding: 4px 6px; border: 1px solid #e0e0e0; vertical-align: top; }
+
         .badge-critico   { color: #c0392b; font-weight: bold; }
         .badge-urgente   { color: #d35400; font-weight: bold; }
         .badge-diferible { color: #27ae60; font-weight: bold; }
+
         .firma-bloque {
             margin-top: 16px;
             border-top: 1px solid #555;
@@ -87,156 +66,88 @@
 </head>
 <body>
 
-    <!-- CABECERA -->
-    <div class="cabecera">
-        <h1>Parte de Intervención de Mantenimiento Correctivo</h1>
-        <p>Sistema Experto de Diagnóstico de Averías en Ascensores</p>
-    </div>
+<div class="cabecera">
+    <h1>Parte de Intervención de Mantenimiento Correctivo</h1>
+    <p>Sistema Experto de Diagnóstico de Averías en Ascensores</p>
+</div>
 
-    <!-- DATOS DE LA INTERVENCIÓN -->
-    <div class="seccion">
-        <div class="seccion-titulo">Datos de la intervención</div>
-        <div class="fila">
-            <span class="etiqueta">Nº de intervención:</span>
-            #{{ intervencion.pk }}
-        </div>
-        <div class="fila">
-            <span class="etiqueta">Fecha y hora de inicio:</span>
-            {{ intervencion.fecha_inicio|date:"d/m/Y H:i" }}
-        </div>
-        <div class="fila">
-            <span class="etiqueta">Fecha y hora de fin:</span>
-            {% if intervencion.fecha_fin %}
-                {{ intervencion.fecha_fin|date:"d/m/Y H:i" }}
-            {% else %}
-                —
-            {% endif %}
-        </div>
-        <div class="fila">
-            <span class="etiqueta">Técnico actuante:</span>
-            {{ tecnico.get_full_name|default:tecnico.username }}
-        </div>
+<div class="seccion">
+    <div class="seccion-titulo">Datos de la intervención</div>
+    <div class="fila"><span class="etiqueta">Nº de intervención:</span> #{{ intervencion.pk }}</div>
+    <div class="fila"><span class="etiqueta">Fecha y hora de inicio:</span> {{ intervencion.fecha_inicio|date:"d/m/Y H:i" }}</div>
+    <div class="fila">
+        <span class="etiqueta">Fecha y hora de fin:</span>
+        {% if intervencion.fecha_fin %}{{ intervencion.fecha_fin|date:"d/m/Y H:i" }}{% else %}—{% endif %}
     </div>
+    <div class="fila"><span class="etiqueta">Técnico actuante:</span> {{ tecnico.get_full_name|default:tecnico.username }}</div>
+</div>
 
-    <!-- DATOS DEL ASCENSOR -->
-    <div class="seccion">
-        <div class="seccion-titulo">Datos del ascensor</div>
-        <div class="fila">
-            <span class="etiqueta">Identificador:</span>
-            {{ ascensor.identificador }}
-        </div>
-        <div class="fila">
-            <span class="etiqueta">Dirección:</span>
-            {{ ascensor.direccion }}
-        </div>
-        <div class="fila">
-            <span class="etiqueta">Fabricante:</span>
-            {{ ascensor.fabricante }}
-        </div>
-        <div class="fila">
-            <span class="etiqueta">Tipo:</span>
-            {{ ascensor.get_tipo_ascensor_display }}
-        </div>
-        {% if ascensor.tipo_maniobra %}
-        <div class="fila">
-            <span class="etiqueta">Tipo de maniobra:</span>
-            {{ ascensor.tipo_maniobra }}
-        </div>
-        {% endif %}
-        {% if ascensor.anio_instalacion %}
-        <div class="fila">
-            <span class="etiqueta">Año de instalación:</span>
-            {{ ascensor.anio_instalacion }}
-        </div>
-        {% endif %}
-    </div>
+<div class="seccion">
+    <div class="seccion-titulo">Datos del ascensor</div>
+    <div class="fila"><span class="etiqueta">Identificador:</span> {{ ascensor.identificador }}</div>
+    <div class="fila"><span class="etiqueta">Dirección:</span> {{ ascensor.direccion }}</div>
+    <div class="fila"><span class="etiqueta">Fabricante:</span> {{ ascensor.fabricante }}</div>
+    <div class="fila"><span class="etiqueta">Tipo:</span> {{ ascensor.get_tipo_ascensor_display }}</div>
+    {% if ascensor.tipo_maniobra %}
+    <div class="fila"><span class="etiqueta">Tipo de maniobra:</span> {{ ascensor.tipo_maniobra }}</div>
+    {% endif %}
+    {% if ascensor.anio_instalacion %}
+    <div class="fila"><span class="etiqueta">Año de instalación:</span> {{ ascensor.anio_instalacion }}</div>
+    {% endif %}
+</div>
 
-    <!-- SÍNTOMAS REGISTRADOS -->
-    <div class="seccion">
-        <div class="seccion-titulo">Síntomas registrados</div>
-        {% with sintomas=intervencion.sintomas_registrados.all %}
-        {% if sintomas %}
-        <ol>
-            {% for sintoma in sintomas %}
-            <li>{{ sintoma.descripcion }}</li>
+<div class="seccion">
+    <div class="seccion-titulo">Síntomas registrados</div>
+    {% with sintomas=intervencion.sintomas_registrados.all %}
+    {% if sintomas %}
+    <ol>{% for s in sintomas %}<li>{{ s.descripcion }}</li>{% endfor %}</ol>
+    {% else %}
+    <p>No se registraron síntomas.</p>
+    {% endif %}
+    {% endwith %}
+</div>
+
+<div class="seccion">
+    <div class="seccion-titulo">Diagnóstico generado</div>
+    {% if resultados %}
+    <table>
+        <thead>
+            <tr>
+                <th style="width:30%">Causa probable</th>
+                <th style="width:12%">Criticidad</th>
+                <th>Pasos de comprobación</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in resultados %}
+            <tr>
+                <td>{{ r.causa }}</td>
+                <td><span class="badge-{{ r.criticidad }}">{{ r.criticidad_label }}</span></td>
+                <td><ol>{% for paso in r.pasos %}<li>{{ paso }}</li>{% endfor %}</ol></td>
+            </tr>
             {% endfor %}
-        </ol>
-        {% else %}
-        <p>No se registraron síntomas.</p>
-        {% endif %}
-        {% endwith %}
-    </div>
+        </tbody>
+    </table>
+    {% else %}
+    <p>El motor de inferencia no identificó causas probables para los síntomas registrados.</p>
+    {% endif %}
+</div>
 
-    <!-- DIAGNÓSTICO GENERADO -->
-    <div class="seccion">
-        <div class="seccion-titulo">Diagnóstico generado por el motor de inferencia</div>
-        {% if resultados %}
-        <table>
-            <thead>
-                <tr>
-                    <th style="width:30%">Causa probable</th>
-                    <th style="width:12%">Criticidad</th>
-                    <th>Pasos de comprobación recomendados</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for resultado in resultados %}
-                <tr>
-                    <td>{{ resultado.causa }}</td>
-                    <td>
-                        <span class="badge-{{ resultado.criticidad }}">
-                            {{ resultado.criticidad_label }}
-                        </span>
-                    </td>
-                    <td>
-                        <ol>
-                            {% for paso in resultado.pasos %}
-                            <li>{{ paso }}</li>
-                            {% endfor %}
-                        </ol>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% else %}
-        <p>El motor de inferencia no identificó causas probables para los síntomas registrados.</p>
-        {% endif %}
-    </div>
+<div class="seccion">
+    <div class="seccion-titulo">Actuación realizada</div>
+    <div class="fila"><span class="etiqueta">Causa confirmada:</span> {{ intervencion.causa_confirmada|default:"—" }}</div>
+    <div class="fila"><span class="etiqueta">Acción correctiva:</span> {{ intervencion.accion_correctiva|default:"—" }}</div>
+    {% if intervencion.observaciones %}
+    <div class="fila"><span class="etiqueta">Observaciones:</span> {{ intervencion.observaciones }}</div>
+    {% endif %}
+    <div class="fila"><span class="etiqueta">Resultado:</span> {{ intervencion.get_resultado_display }}</div>
+</div>
 
-    <!-- ACTUACIÓN REALIZADA -->
-    <div class="seccion">
-        <div class="seccion-titulo">Actuación realizada</div>
-        <div class="fila">
-            <span class="etiqueta">Causa confirmada:</span>
-            {{ intervencion.causa_confirmada|default:"—" }}
-        </div>
-        <div class="fila">
-            <span class="etiqueta">Acción correctiva aplicada:</span>
-            {{ intervencion.accion_correctiva|default:"—" }}
-        </div>
-        {% if intervencion.observaciones %}
-        <div class="fila">
-            <span class="etiqueta">Observaciones:</span>
-            {{ intervencion.observaciones }}
-        </div>
-        {% endif %}
-        <div class="fila">
-            <span class="etiqueta">Resultado:</span>
-            {{ intervencion.get_resultado_display }}
-        </div>
-    </div>
+<div class="firma-bloque">Firma del técnico actuante</div>
 
-    <!-- FIRMA -->
-    <div class="firma-bloque">
-        Firma del técnico actuante
-    </div>
-
-    <!-- PIE DE PÁGINA -->
-    <div class="pie">
-        Documento generado conforme al Real Decreto 355/2024 (ITC AEM 1) —
-        Fecha de generación: {% now "d/m/Y H:i" %}
-    </div>
+<div class="pie">
+    Documento generado conforme al Real Decreto 355/2024 (ITC AEM 1) — Fecha: {% now "d/m/Y H:i" %}
+</div>
 
 </body>
 </html>
