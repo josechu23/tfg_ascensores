@@ -26,7 +26,7 @@
   {
     "model": "diagnostico.regla", "pk": 1,
     "fields": {
-      "nombre": "Fallo en operador de puertas",
+      "nombre": "Fallo en operador de puertas (combinación confirmatoria)",
       "subsistema": 1,
       "sintomas_requeridos": [1, 2],
       "causa_probable": "Operador de puertas defectuoso o desajustado",
@@ -37,7 +37,7 @@
   {
     "model": "diagnostico.regla", "pk": 2,
     "fields": {
-      "nombre": "Fallo en detector de obstáculos",
+      "nombre": "Fallo en detector de obstáculos (combinación confirmatoria)",
       "subsistema": 1,
       "sintomas_requeridos": [3, 4],
       "causa_probable": "Detector de obstáculos (barrera o borde sensitivo) defectuoso",
@@ -48,7 +48,7 @@
   {
     "model": "diagnostico.regla", "pk": 3,
     "fields": {
-      "nombre": "Fallo en cerradura de puerta de rellano",
+      "nombre": "Fallo en cerradura de puerta de rellano (combinación confirmatoria)",
       "subsistema": 1,
       "sintomas_requeridos": [5, 13],
       "causa_probable": "Cerradura de puerta de rellano defectuosa o desajustada",
@@ -59,7 +59,7 @@
   {
     "model": "diagnostico.regla", "pk": 4,
     "fields": {
-      "nombre": "Fallo en freno electromagnético",
+      "nombre": "Fallo en freno electromagnético (combinación confirmatoria)",
       "subsistema": 2,
       "sintomas_requeridos": [6, 8],
       "causa_probable": "Freno electromagnético del motor bloqueado o con bobina defectuosa",
@@ -70,7 +70,7 @@
   {
     "model": "diagnostico.regla", "pk": 5,
     "fields": {
-      "nombre": "Fallo en encoder o variador de frecuencia",
+      "nombre": "Fallo en encoder o variador de frecuencia (combinación confirmatoria)",
       "subsistema": 2,
       "sintomas_requeridos": [7, 9],
       "causa_probable": "Encoder del motor dañado o pérdida de señal en el variador",
@@ -81,7 +81,7 @@
   {
     "model": "diagnostico.regla", "pk": 6,
     "fields": {
-      "nombre": "Circuito de seguridad abierto sin causa aparente",
+      "nombre": "Circuito de seguridad abierto (combinación confirmatoria)",
       "subsistema": 3,
       "sintomas_requeridos": [10, 13],
       "causa_probable": "Elemento del circuito de seguridad abierto (fin de carrera, cerradura o contacto)",
@@ -136,7 +136,7 @@
   {
     "model": "diagnostico.regla", "pk": 11,
     "fields": {
-      "nombre": "Fallo en motor de bomba hidráulica",
+      "nombre": "Fallo en motor de bomba hidráulica (combinación confirmatoria)",
       "subsistema": 5,
       "sintomas_requeridos": [6, 17],
       "causa_probable": "Fallo en el motor de la bomba hidráulica o en el contactor de arranque",
@@ -153,6 +153,150 @@
       "causa_probable": "Fuga interna en el bloque de válvulas o en el cilindro hidráulico",
       "pasos_comprobacion": "Inspeccionar visualmente cilindro y conducciones en busca de fugas\nComprobar el estado de las juntas del cilindro\nVerificar el cierre de la válvula de retención del bloque\nConsultar con el servicio técnico si la fuga es interna",
       "criticidad": "critico", "peso_base": 3.0, "activa": true
+    }
+  },
+
+  {
+    "model": "diagnostico.regla", "pk": 13,
+    "fields": {
+      "nombre": "Posible fallo en operador de puertas (puerta bloqueada sin abrir)",
+      "subsistema": 1,
+      "sintomas_requeridos": [1],
+      "causa_probable": "Operador de puertas defectuoso o desajustado",
+      "pasos_comprobacion": "Comprobar tensión en bornes del motor del operador\nVerificar que la correa o cadena no está rota ni floja\nComprobar que el brazo de arrastre no está doblado\nRevisar los finales de carrera de apertura y cierre",
+      "criticidad": "urgente", "peso_base": 1.5, "activa": true
+    }
+  },
+  {
+    "model": "diagnostico.regla", "pk": 14,
+    "fields": {
+      "nombre": "Posible fallo en operador de puertas (ruido metálico aislado)",
+      "subsistema": 1,
+      "sintomas_requeridos": [2],
+      "causa_probable": "Operador de puertas defectuoso o desajustado",
+      "pasos_comprobacion": "Comprobar el estado de la correa o cadena del operador\nVerificar que el brazo de arrastre no está desgastado ni rozando\nRevisar los rodamientos de la polea del operador\nInspeccionar el carril de guía de la puerta en busca de cuerpos extraños",
+      "criticidad": "urgente", "peso_base": 1.5, "activa": true
+    }
+  },
+  {
+    "model": "diagnostico.regla", "pk": 15,
+    "fields": {
+      "nombre": "Posible fallo en detector de obstáculos (puerta no cierra)",
+      "subsistema": 1,
+      "sintomas_requeridos": [3],
+      "causa_probable": "Detector de obstáculos (barrera o borde sensitivo) defectuoso",
+      "pasos_comprobacion": "Limpiar la óptica del detector\nComprobar alineación del emisor y receptor de la barrera infrarroja\nVerificar el cableado del detector en el tablero de puertas\nSustituir si los pasos anteriores no resuelven el fallo",
+      "criticidad": "urgente", "peso_base": 1.5, "activa": true
+    }
+  },
+  {
+    "model": "diagnostico.regla", "pk": 16,
+    "fields": {
+      "nombre": "Posible fallo en detector de obstáculos (puerta reabre sola)",
+      "subsistema": 1,
+      "sintomas_requeridos": [4],
+      "causa_probable": "Detector de obstáculos (barrera o borde sensitivo) defectuoso",
+      "pasos_comprobacion": "Limpiar la óptica del detector\nComprobar alineación del emisor y receptor de la barrera infrarroja\nVerificar el cableado del detector en el tablero de puertas\nSustituir si los pasos anteriores no resuelven el fallo",
+      "criticidad": "urgente", "peso_base": 1.8, "activa": true
+    }
+  },
+  {
+    "model": "diagnostico.regla", "pk": 17,
+    "fields": {
+      "nombre": "Posible fallo en cerradura de puerta de rellano (sin circuito confirmado)",
+      "subsistema": 1,
+      "sintomas_requeridos": [5],
+      "causa_probable": "Cerradura de puerta de rellano defectuosa o desajustada",
+      "pasos_comprobacion": "Verificar visualmente que el gancho engrana correctamente\nComprobar la holgura del rodillo de desenclavamiento\nMedir tensión en los bornes de la cerradura con multímetro\nAjustar o sustituir si no cierra el circuito de seguridad",
+      "criticidad": "critico", "peso_base": 2.0, "activa": true
+    }
+  },
+  {
+    "model": "diagnostico.regla", "pk": 18,
+    "fields": {
+      "nombre": "Posible fallo en freno electromagnético (ascensor no arranca)",
+      "subsistema": 2,
+      "sintomas_requeridos": [6],
+      "causa_probable": "Freno electromagnético del motor bloqueado o con bobina defectuosa",
+      "pasos_comprobacion": "Comprobar que el freno se libera al dar tensión al motor\nMedir la resistencia de la bobina con multímetro\nVerificar el entrehierro según especificaciones del fabricante\nAjustar o sustituir la bobina si la resistencia está fuera de rango",
+      "criticidad": "critico", "peso_base": 1.5, "activa": true
+    }
+  },
+  {
+    "model": "diagnostico.regla", "pk": 19,
+    "fields": {
+      "nombre": "Posible fallo en freno electromagnético (ruido en arranque aislado)",
+      "subsistema": 2,
+      "sintomas_requeridos": [8],
+      "causa_probable": "Freno electromagnético del motor bloqueado o con bobina defectuosa",
+      "pasos_comprobacion": "Comprobar que el freno se libera completamente al arrancar\nVerificar el entrehierro del freno según especificaciones del fabricante\nInspeccionar el disco de freno en busca de rozamientos\nMedir la resistencia de la bobina con multímetro",
+      "criticidad": "urgente", "peso_base": 1.5, "activa": true
+    }
+  },
+  {
+    "model": "diagnostico.regla", "pk": 20,
+    "fields": {
+      "nombre": "Posible fallo en encoder o variador (parada a mitad de recorrido)",
+      "subsistema": 2,
+      "sintomas_requeridos": [7],
+      "causa_probable": "Encoder del motor dañado o pérdida de señal en el variador",
+      "pasos_comprobacion": "Comprobar los LEDs de estado del variador\nVerificar el cableado del encoder entre motor y variador\nConsultar el código de error del variador en el manual\nSustituir el encoder si la señal es incorrecta o inexistente",
+      "criticidad": "urgente", "peso_base": 1.5, "activa": true
+    }
+  },
+  {
+    "model": "diagnostico.regla", "pk": 21,
+    "fields": {
+      "nombre": "Posible fallo en encoder o variador (fallo de nivelación aislado)",
+      "subsistema": 2,
+      "sintomas_requeridos": [9],
+      "causa_probable": "Encoder del motor dañado o pérdida de señal en el variador",
+      "pasos_comprobacion": "Comprobar los LEDs de estado del variador\nVerificar el cableado del encoder entre motor y variador\nConsultar el código de error del variador en el manual\nSustituir el encoder si la señal es incorrecta o inexistente",
+      "criticidad": "urgente", "peso_base": 2.0, "activa": true
+    }
+  },
+  {
+    "model": "diagnostico.regla", "pk": 22,
+    "fields": {
+      "nombre": "Posible elemento de circuito de seguridad abierto (sin respuesta a llamadas)",
+      "subsistema": 3,
+      "sintomas_requeridos": [10],
+      "causa_probable": "Elemento del circuito de seguridad abierto (fin de carrera, cerradura o contacto)",
+      "pasos_comprobacion": "Consultar el diagrama de seguridad del esquema eléctrico\nRecorrer el circuito midiendo tensión en cada nodo con multímetro\nIdentificar el elemento que no cierra el circuito\nReparar o sustituir el elemento defectuoso",
+      "criticidad": "critico", "peso_base": 1.8, "activa": true
+    }
+  },
+  {
+    "model": "diagnostico.regla", "pk": 23,
+    "fields": {
+      "nombre": "Elemento de circuito de seguridad abierto (circuito confirmado abierto)",
+      "subsistema": 3,
+      "sintomas_requeridos": [13],
+      "causa_probable": "Elemento del circuito de seguridad abierto (fin de carrera, cerradura o contacto)",
+      "pasos_comprobacion": "Consultar el diagrama de seguridad del esquema eléctrico\nRecorrer el circuito midiendo tensión en cada nodo con multímetro\nIdentificar el elemento que no cierra el circuito\nReparar o sustituir el elemento defectuoso",
+      "criticidad": "critico", "peso_base": 3.5, "activa": true
+    }
+  },
+  {
+    "model": "diagnostico.regla", "pk": 24,
+    "fields": {
+      "nombre": "Posible fallo en motor de bomba hidráulica (ascensor no arranca en hidráulico)",
+      "subsistema": 5,
+      "sintomas_requeridos": [6],
+      "causa_probable": "Fallo en el motor de la bomba hidráulica o en el contactor de arranque",
+      "pasos_comprobacion": "Comprobar tensión en los bornes del motor de la bomba\nVerificar el estado del contactor de arranque\nMedir intensidad de arranque con pinza amperimétrica\nRevisar nivel y temperatura del aceite en el depósito",
+      "criticidad": "urgente", "peso_base": 1.5, "activa": true
+    }
+  },
+  {
+    "model": "diagnostico.regla", "pk": 25,
+    "fields": {
+      "nombre": "Posible fallo en motor de bomba hidráulica (ruido bomba aislado)",
+      "subsistema": 5,
+      "sintomas_requeridos": [17],
+      "causa_probable": "Fallo en el motor de la bomba hidráulica o en el contactor de arranque",
+      "pasos_comprobacion": "Comprobar tensión en los bornes del motor de la bomba\nVerificar el estado del contactor de arranque\nMedir intensidad de arranque con pinza amperimétrica\nRevisar nivel y temperatura del aceite en el depósito",
+      "criticidad": "urgente", "peso_base": 2.0, "activa": true
     }
   }
 ]

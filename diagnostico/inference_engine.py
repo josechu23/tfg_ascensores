@@ -13,25 +13,34 @@ def obtener_diagnostico(sintomas_ids, ascensor_id):
 
     reglas_activas = Regla.objects.filter(activa=True).prefetch_related('sintomas_requeridos')
 
-    resultados = []
+    # Evaluar cada regla y agrupar por causa: para cada causa se conserva
+    # únicamente la regla con mayor número de síntomas coincidentes (más específica),
+    # que es la que tiene mayor certeza diagnóstica.
+    mejores = {}
     for regla in reglas_activas:
         requeridos = set(regla.sintomas_requeridos.values_list('pk', flat=True))
         if not requeridos.issubset(sintomas_observados):
             continue
 
-        pasos = [p.strip() for p in regla.pasos_comprobacion.split('\n') if p.strip()]
+        causa = regla.causa_probable
+        especificidad = len(requeridos)
 
-        resultados.append({
-            'causa':            regla.causa_probable,
-            'criticidad':       regla.criticidad,
-            'criticidad_label': regla.get_criticidad_display(),
-            'peso_final':       regla.peso_base,
-            'pasos':            pasos,
-            'regla_id':         regla.pk,
-        })
+        if causa not in mejores or especificidad > mejores[causa]['especificidad']:
+            pasos = [p.strip() for p in regla.pasos_comprobacion.split('\n') if p.strip()]
+            mejores[causa] = {
+                'causa':            causa,
+                'criticidad':       regla.criticidad,
+                'criticidad_label': regla.get_criticidad_display(),
+                'peso_final':       regla.peso_base,
+                'pasos':            pasos,
+                'regla_id':         regla.pk,
+                'especificidad':    especificidad,
+            }
 
-    if not resultados:
+    if not mejores:
         return []
+
+    resultados = list(mejores.values())
 
     # Ajustar pesos según el historial del ascensor concreto
     historial = (
@@ -51,6 +60,10 @@ def obtener_diagnostico(sintomas_ids, ascensor_id):
         veces = frecuencia.get(r['causa'], 0)
         if veces > 0:
             r['peso_final'] = round(r['peso_final'] + veces * 0.2, 2)
+
+    # Eliminar campo interno antes de devolver
+    for r in resultados:
+        del r['especificidad']
 
     resultados.sort(key=lambda x: x['peso_final'], reverse=True)
     return resultados
